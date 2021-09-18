@@ -48,7 +48,7 @@ jobs:
           platforms: ${{ env.buildx_platforms }}
           load: false
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/latex:unstable
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer:unstable
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Determine release tag name
@@ -65,8 +65,8 @@ jobs:
           load: false
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/latex:${{steps.vars.outputs.tag}},
-            ${{ secrets.DOCKERHUB_USERNAME }}/latex:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer:${{steps.vars.outputs.tag}},
+            ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Update Docker Hub description
@@ -76,4 +76,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           readme-filepath: README.md
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/latex
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer
