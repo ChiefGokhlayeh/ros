@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKERHUB_USERNAME: gokhlayeh # used in non trustworthy section of the job
+      DOCKERHUB_IMAGENAME: ros
       buildx_platforms: linux/amd64
     steps:
       # preparation
@@ -48,7 +49,7 @@ jobs:
           platforms: ${{ env.buildx_platforms }}
           load: false
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer:unstable
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGENAME }}:unstable
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Determine release tag name
@@ -65,8 +66,8 @@ jobs:
           load: false
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer:${{steps.vars.outputs.tag}},
-            ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGENAME }}:${{steps.vars.outputs.tag}},
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGENAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Update Docker Hub description
@@ -76,4 +77,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           readme-filepath: README.md
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/asd-lab-devcontainer
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGENAME }}
