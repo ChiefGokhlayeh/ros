@@ -41,6 +41,6 @@ If you develop a ROS package named `my-package`, start with the following `devco
   "postCreateCommand": "rosdep update && sudo apt-get update && rosdep install --from-paths --ignore-src .. -y -r",
   "runArgs": ["--init", "--security-opt", "seccomp=unconfined"],
   "forwardPorts": [6080, 5901],
-  "overrideCommand": false
+  "overrideCommand": false,
 }
 ```
